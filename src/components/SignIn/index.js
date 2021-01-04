@@ -15,9 +15,10 @@ const SignIn = () => {
     e.preventDefault();
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((userAuth) => {
+        console.log(userAuth);
+
         history.push('/');
-        console.log('login successfully');
       })
       .catch((err) => {
         console.log(err);

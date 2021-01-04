@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebase/utils';
+import { auth, firestore } from '../../firebase/utils';
 
 import { useHistory } from 'react-router-dom';
 import FormInput from '../Shared/FormInput';
@@ -16,9 +16,22 @@ const SignUp = () => {
     e.preventDefault();
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        history.push('/');
-        console.log('login successfully');
+      .then((userAuth) => {
+        firestore
+          .collection('users')
+          .doc(userAuth.uid)
+          .set({
+            displayName: name,
+            email,
+            createdDate: new Date(),
+            userRoles: ['user'],
+          })
+          .then(() => {
+            history.push('/');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -34,7 +47,7 @@ const SignUp = () => {
           setName(e.target.value);
         }}
         type="text"
-        placeholder="Email"
+        placeholder="Your Name"
         required
       />
       <FormInput
