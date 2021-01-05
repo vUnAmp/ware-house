@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth, firestore } from '../../firebase/utils';
+import { auth, firestore, handleUserData } from '../../firebase/utils';
 
 import { useHistory } from 'react-router-dom';
 import FormInput from '../Shared/FormInput';
@@ -17,9 +17,10 @@ const SignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userAuth) => {
+        console.log(userAuth);
         firestore
           .collection('users')
-          .doc(userAuth.uid)
+          .doc(userAuth.user.uid)
           .set({
             displayName: name,
             email,
@@ -27,6 +28,7 @@ const SignUp = () => {
             userRoles: ['user'],
           })
           .then(() => {
+            handleUserData(userAuth.user);
             history.push('/');
           })
           .catch((err) => {

@@ -4,18 +4,31 @@ import { auth } from '../../firebase/utils';
 
 // redux
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentUser } from '../../redux/User/user.actions';
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 
 const Header = (props) => {
-  const { currentUser } = props;
+  const { currentUser } = useSelector(mapState);
+  const dispatch = useDispatch();
   return (
     <div className="boxFlex headerWrap">
       <Link to="/">Home</Link>
+      <Link to="/about">About</Link>
       {currentUser ? (
         <Link
           to="/"
           onClick={() => {
-            auth.signOut();
+            auth
+              .signOut()
+              .then(() => {
+                dispatch(setCurrentUser(null));
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }}
         >
           Log Out
@@ -30,8 +43,4 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-});
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

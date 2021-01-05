@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebase/utils';
+import { auth, handleUserData } from '../../firebase/utils';
 
 import { useHistory } from 'react-router-dom';
 import FormInput from '../Shared/FormInput';
@@ -16,7 +16,7 @@ const SignIn = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userAuth) => {
-        console.log(userAuth);
+        handleUserData(userAuth);
 
         history.push('/');
       })

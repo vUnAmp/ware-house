@@ -4,6 +4,11 @@ import 'firebase/firestore';
 
 import { firebaseConfig } from './config';
 
+// Redyx
+
+import { store } from '../redux/createStore';
+import { setCurrentUser } from '../redux/User/user.actions';
+
 // Initialze App
 firebase.initializeApp(firebaseConfig);
 
@@ -14,4 +19,27 @@ export const firestore = firebase.firestore();
 
 // Export some function
 
-export const handleUserData = () => {};
+export const handleUserData = (userAuth) => {
+  console.log(userAuth);
+  firestore
+    .collection('users')
+    .doc(userAuth.uid)
+    .get()
+    .then((doc) => {
+      console.log(doc.data());
+      return doc.data();
+    })
+    .then((x) => {
+      const { displayName, email, userRoles } = x;
+      store.dispatch(
+        setCurrentUser({
+          displayName,
+          email,
+          userRoles,
+        })
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
