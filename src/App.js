@@ -2,7 +2,12 @@ import './App.scss';
 import React, { useEffect } from 'react';
 import './style/main.scss';
 
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+} from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Registration from './pages/Registration';
@@ -35,7 +40,10 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={AboutUs} />
-          <Route path="/login" component={Login} />
+          <Route
+            path="/login"
+            render={() => (currentUser ? <Redirect to="/" /> : <Login />)}
+          />
           <Route path="/registration" component={Registration} />
         </Switch>
       </Router>
