@@ -13,3 +13,8 @@ export const startSignInUser = (userCredentials) => ({
   type: userTypes.SIGN_IN_USER,
   payload: userCredentials,
 });
+
+export const startSignUpUser = (userCredentials) => ({
+  type: userTypes.SIGN_UP_USER,
+  payload: userCredentials,
+});

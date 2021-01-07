@@ -1,5 +1,6 @@
 const userTypes = {
   SIGN_IN_USER: 'SIGN_IN_USER',
+  SIGN_UP_USER: 'SIGN_UP_USER',
 
   SET_CURRENT_USER: 'SET_CURRENT_USER',
 

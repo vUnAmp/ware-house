@@ -24,6 +24,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(currentUser);
     if (currentUser) {
       history.push('/');
     }

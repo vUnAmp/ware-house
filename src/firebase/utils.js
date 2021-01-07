@@ -19,20 +19,36 @@ export const firestore = firebase.firestore();
 
 // Export some function
 
-export const handleUserData = (userAuth) => {
-  firestore
-    .collection('users')
-    .doc(userAuth.uid)
-    .get()
-    .then((doc) => {
-      return doc.data();
-    })
-    .then((x) => {
-      console.log(x);
-      const { email, userRoles } = x;
-      store.dispatch(setCurrentUser(email, userRoles));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+export const handleUserData = async ({ userAuth, additionalData }) => {
+  console.log(userAuth);
+  const userRef = firestore.collection('users').doc(userAuth.uid);
+
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { email } = userAuth;
+    const timestamp = new Date();
+    const userRoles = ['user'];
+
+    try {
+      await userRef.set({
+        email,
+        createDate: timestamp,
+        userRoles,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return userRef;
+};
+
+export const checkCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unscribe = auth.onAuthStateChanged((userAuth) => {
+      unscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };

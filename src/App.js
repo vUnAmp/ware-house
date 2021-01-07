@@ -12,26 +12,25 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Registration from './pages/Registration';
 import AboutUs from './pages/About';
-import { handleUserData, auth } from './firebase/utils';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-const mapState = ({ user }) => ({
-  currentUser: user.currentUser,
-});
+import { checkUserSession } from './redux/User/user.actions';
 
 function App() {
-  const { currentUser } = useSelector(mapState);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (!currentUser) {
-      auth.onAuthStateChanged((userAuth) => {
-        if (userAuth) {
-          handleUserData(userAuth);
-        }
-      });
-    }
-  }, [currentUser]);
+    dispatch(checkUserSession());
+    // if (!currentUser) {
+    //   auth.onAuthStateChanged((userAuth) => {
+    //     console.log(userAuth);
+    //     // if (userAuth) {
+    //     //   handleUserData(userAuth);
+    //     // }
+    //   });
+    // }
+  }, [dispatch]);
 
   return (
     <div className="App">
