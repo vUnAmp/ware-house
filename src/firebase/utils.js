@@ -20,24 +20,17 @@ export const firestore = firebase.firestore();
 // Export some function
 
 export const handleUserData = (userAuth) => {
-  console.log(userAuth);
   firestore
     .collection('users')
     .doc(userAuth.uid)
     .get()
     .then((doc) => {
-      console.log(doc.data());
       return doc.data();
     })
     .then((x) => {
-      const { displayName, email, userRoles } = x;
-      store.dispatch(
-        setCurrentUser({
-          displayName,
-          email,
-          userRoles,
-        })
-      );
+      console.log(x);
+      const { email, userRoles } = x;
+      store.dispatch(setCurrentUser(email, userRoles));
     })
     .catch((err) => {
       console.log(err);

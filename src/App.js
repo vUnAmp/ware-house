@@ -28,11 +28,10 @@ function App() {
       auth.onAuthStateChanged((userAuth) => {
         if (userAuth) {
           handleUserData(userAuth);
-          console.error('Effec from App.js');
         }
       });
     }
-  });
+  }, [currentUser]);
 
   return (
     <div className="App">
@@ -42,8 +41,10 @@ function App() {
           <Route path="/about" component={AboutUs} />
           <Route
             path="/login"
-            render={() => (currentUser ? <Redirect to="/" /> : <Login />)}
+            // render={() => (currentUser ? <Redirect to="/" /> : <Login />)}
+            component={Login}
           />
+
           <Route path="/registration" component={Registration} />
         </Switch>
       </Router>

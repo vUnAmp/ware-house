@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { auth, firestore, handleUserData } from '../../firebase/utils';
 
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import FormInput from '../Shared/FormInput';
 import Button from '../Shared/Button';
 
@@ -39,7 +39,7 @@ const SignUp = () => {
         console.log(err);
       });
   };
-
+  if (history.action === 'POP') return <Redirect to="/" />;
   return (
     <form onSubmit={handleSignUp} className="loginForm formWrap">
       <h3>Registration</h3>

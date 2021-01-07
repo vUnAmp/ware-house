@@ -8,3 +8,8 @@ export const setCurrentUser = (user) => ({
 export const checkUserSession = () => ({
   type: userTypes.CHECK_USER_SESSION,
 });
+
+export const startSignInUser = (userCredentials) => ({
+  type: userTypes.SIGN_IN_USER,
+  payload: userCredentials,
+});
