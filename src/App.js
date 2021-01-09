@@ -17,6 +17,7 @@ import AboutUs from './pages/About';
 import { useDispatch } from 'react-redux';
 
 import { checkUserSession } from './redux/User/user.actions';
+import AdminBoard from './pages/AdminBoard';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
           />
 
           <Route path="/registration" component={Registration} />
+          <Route path="/adminboard" component={AdminBoard} />
         </Switch>
       </Router>
     </div>

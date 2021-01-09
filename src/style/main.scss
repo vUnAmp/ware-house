@@ -13,4 +13,9 @@
 
 @import '../components/Header/header.scss';
 @import '../components/SignIn/signin.scss';
-@import '../components//SignUp/signup.scss';
+@import '../components/SignUp/signup.scss';
+@import '../components/AddProduct/addproducts.scss';
+
+// Pages SCSS
+
+@import '../pages/AdminBoard/adminboard.scss';

@@ -57,7 +57,6 @@ export function* onEmailSignUpStart() {
 export function* checkUserSession() {
   try {
     const userAuth = yield checkCurrentUser();
-    yield console.log(userAuth);
     if (!userAuth) return;
     yield getSnapShotUserAuth(userAuth);
   } catch (error) {

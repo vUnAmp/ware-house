@@ -20,7 +20,6 @@ export const firestore = firebase.firestore();
 // Export some function
 
 export const handleUserData = async ({ userAuth, additionalData }) => {
-  console.log(userAuth);
   const userRef = firestore.collection('users').doc(userAuth.uid);
 
   const snapShot = await userRef.get();

@@ -18,21 +18,24 @@ const Header = (props) => {
       <Link to="/">Home</Link>
       <Link to="/about">About</Link>
       {currentUser ? (
-        <Link
-          to="/"
-          onClick={() => {
-            auth
-              .signOut()
-              .then(() => {
-                dispatch(setCurrentUser(null));
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }}
-        >
-          Log Out
-        </Link>
+        <>
+          <Link
+            to="/"
+            onClick={() => {
+              auth
+                .signOut()
+                .then(() => {
+                  dispatch(setCurrentUser(null));
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+          >
+            Log Out
+          </Link>
+          <Link to="/adminboard">Admin Board</Link>
+        </>
       ) : (
         <>
           <Link to="/login">Login</Link>
